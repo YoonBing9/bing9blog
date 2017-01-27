@@ -4,6 +4,7 @@ import morgan from 'morgan'; // HTTP REQUEST LOGGER
 import bodyParser from 'body-parser'; // PARSE HTML BODY
 import mongoose from 'mongoose';
 import session from 'express-session';
+import api from './routes';
 
 
 const app = express();
@@ -18,6 +19,7 @@ db.once('open', () => { console.log('Connected to mongodb server'); });
 mongoose.connect('mongodb://localhost/codelab');
 
 app.use('/', express.static(path.join(__dirname, './../public')));
+app.use('/api', api);
 
 app.use(morgan('dev'));
 app.use(bodyParser.json());
