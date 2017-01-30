@@ -40,17 +40,25 @@ router.post('/signin', (req, res) => {
 
     // RETURN SUCCESS
     return res.json({
-        success: true
+        success: true,
+        username: account.username
     });
   });
 });
 
 router.get('/getinfo', (req, res) => {
-    res.json({ info: null });
+  if(typeof req.session.loginInfo === "undefined") {
+      return res.status(401).json({
+          error: 1
+      });
+  }
+
+  res.json({ info: req.session.loginInfo });
 });
 
 router.post('/logout', (req, res) => {
-    return res.json({ success: true });
+  req.session.destroy(err => { if(err) throw err; });
+  return res.json({ sucess: true });
 });
 
 export default router;

@@ -2,7 +2,9 @@ import mongoose from 'mongoose';
 
 const Schema = mongoose.Schema;
 
-const Comment = new Schema({
+var Comment = new Schema();
+
+Comment.add({
   writer: String,
   contents: String,
   date: {
@@ -12,4 +14,4 @@ const Comment = new Schema({
   comments: [ Comment ]
 });
 
-export default mongoose.model('comment', Comment);
+export default Comment;
